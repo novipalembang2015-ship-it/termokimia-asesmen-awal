@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Asesmen Awal Termokimia</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f6f7f4;--card:#fff;--tx:#1d2420;--mu:#5d6a62;--ac:#c2410c;--ac2:#fff;--bd:#dfe3dc;--ok:#15803d;--no:#b91c1c;--soft:#fdf0e8;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151a17;--card:#1e2521;--tx:#eef1ed;--mu:#9aa89f;--ac:#fb923c;--ac2:#1a1209;--bd:#323b35;--ok:#4ade80;--no:#f87171;--soft:#2a2019;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#151a17;--card:#1e2521;--tx:#eef1ed;--mu:#9aa89f;--ac:#fb923c;--ac2:#1a1209;--bd:#323b35;--ok:#4ade80;--no:#f87171;--soft:#2a2019;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:760px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;margin:.2em 0}h2{font-size:1.1rem;margin:1.4em 0 .5em;color:var(--ac)}
+.mu{color:var(--mu);font-size:.9rem}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px 16px;margin:12px 0}
+.q b{display:block;margin-bottom:6px}
+label.o{display:flex;gap:8px;align-items:flex-start;padding:6px 8px;border-radius:8px;cursor:pointer}
+label.o:hover{background:var(--soft)}
+input[type=text],textarea,select{width:100%;padding:9px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font:inherit}
+textarea{min-height:90px}
+button{background:var(--ac);color:var(--ac2);border:0;border-radius:10px;padding:11px 18px;font:inherit;font-weight:600;cursor:pointer}
+button.g{background:transparent;color:var(--ac);border:1px solid var(--ac)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:8px 0;z-index:5}
+.pb{height:8px;background:var(--bd);border-radius:6px;overflow:hidden}.pb i{display:block;height:100%;background:var(--ac);width:0}
+.path{border-left:6px solid var(--ac);background:var(--soft)}
+.big{font-size:1.6rem;font-weight:700}
+.ok{color:var(--ok)}.no{color:var(--no)}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.85rem}td,th{border:1px solid var(--bd);padding:5px 8px;text-align:left;white-space:nowrap}
+.err{color:var(--no);font-weight:600}
+</style></head><body><main>
+<div id="app"></div>
+</main>
+<script>
+const A=[
+{s:'A',t:'Cara belajar yang paling nyaman bagimu:',o:['Melihat (gambar, video, diagram)','Mendengar (penjelasan, diskusi)','Melakukan (praktikum, simulasi)','Membaca dan membuat catatan']},
+{s:'A',t:'Perangkat dan koneksi internet yang biasa kamu pakai untuk belajar:',o:['HP, internet stabil','HP, internet sering putus/lambat','Laptop/PC, internet stabil','Laptop/PC, internet sering putus/lambat','Hanya bisa di sekolah']},
+{s:'A',m:1,t:'Topik yang paling menarik bagimu (pilih maksimal 2):',o:['Bahan bakar dan kendaraan','Makanan, kalori, dan dapur','Kebakaran hutan dan lahan (karhutla) serta kualitas udara','Energi dari limbah (biogas, biodiesel, minyak jelantah)','Cold pack/hot pack dan teknologi (baterai, panel surya)']},
+{s:'A',t:'Bentuk tugas yang paling kamu sukai:',o:['Eksperimen/praktikum','Membuat video/poster','Membuat produk/proyek','Kuis dan game','Presentasi kelompok']},
+{s:'B',k:2,c:'Konsep mol',t:'Jumlah mol dari 36 gram air (Mr = 18) adalah …',o:['0,5 mol','1 mol','2 mol','18 mol','36 mol']},
+{s:'B',k:1,c:'Penyetaraan reaksi',t:'Persamaan reaksi yang sudah setara adalah …',o:['H₂ + O₂ → H₂O','2H₂ + O₂ → 2H₂O','H₂ + 2O₂ → 2H₂O','2H₂ + 2O₂ → H₂O','4H₂ + O₂ → 2H₂O']},
+{s:'B',k:0,c:'Selisih suhu (ΔT)',t:'Suhu sebuah benda naik dari 25 °C menjadi 35 °C. Selisih suhunya (ΔT) adalah …',o:['10 °C','25 °C','35 °C','60 °C','875 °C']},
+{s:'B',k:2,c:'Perubahan kimia',t:'Peristiwa berikut yang termasuk perubahan kimia adalah …',o:['Es mencair','Air menguap','Besi berkarat','Gula larut dalam air','Kapur barus menyublim']},
+{s:'C',k:1,c:'Reaksi eksoterm',t:'Pada reaksi eksoterm, yang terjadi adalah …',o:['Sistem menyerap kalor dari lingkungan','Sistem melepas kalor ke lingkungan','Tidak ada perpindahan kalor','Suhu lingkungan turun','Kalor hilang begitu saja']},
+{s:'C',k:2,c:'Proses endoterm',t:'Contoh proses endoterm adalah …',o:['Pembakaran kayu','Pembakaran bensin','Fotosintesis','Respirasi sel','Kapur tohor dilarutkan dalam air']},
+{s:'C',k:1,c:'Indikator suhu eksoterm',t:'Gelas berisi larutan hasil reaksi terasa panas saat disentuh. Reaksi tersebut bersifat …',o:['Endoterm, karena sistem menyerap kalor','Eksoterm, karena sistem melepas kalor','Endoterm, karena lingkungan melepas kalor','Netral','Tidak dapat ditentukan']},
+{s:'C',k:3,c:'Kalor q = m·c·ΔT',t:'Sebanyak 100 g air dipanaskan dari 25 °C menjadi 45 °C. Jika kalor jenis air 4,2 J/g°C, kalor yang diserap air adalah …',o:['420 J','840 J','4.200 J','8.400 J','18.900 J']},
+{s:'C',k:0,c:'Diagram tingkat energi',t:'Pada diagram tingkat energi, produk berada di bawah pereaksi. Reaksi tersebut …',o:['Eksoterm, ΔH negatif','Eksoterm, ΔH positif','Endoterm, ΔH negatif','Endoterm, ΔH positif','Tidak melibatkan perubahan energi']},
+{s:'C',k:1,c:'Arah perpindahan kalor (miskonsepsi “dingin berpindah”)',t:'Kantong cold pack terasa dingin di kulit setelah diaktifkan. Penjelasan yang paling tepat adalah …',o:['Kantong melepaskan “dingin” ke kulit','Kantong menyerap kalor dari kulit, sehingga reaksinya endoterm','Kantong melepas kalor ke kulit, sehingga reaksinya eksoterm','Tidak ada perpindahan energi, hanya perasaan saja','Kulit menghasilkan dingin yang diserap kantong']},
+{s:'C',e:1,c:'Penalaran kontekstual karhutla',t:'Uraian: Mengapa kebakaran hutan dan lahan gambut menghasilkan panas yang besar dan sulit dipadamkan? Jelaskan dengan istilah sehari-hari atau istilah kimia yang kamu ketahui.'}
+];
+const L='abcde';
+const PROF={fmt:['video, gambar, dan diagram','penjelasan audio dan diskusi','simulasi dan lab maya','bacaan dan catatan ringkas'],
+mode:['Mode standar (HP)','Mode ringan: video pendek dan teks, tanpa unduhan besar','Mode standar (laptop/PC)','Mode ringan dan dapat diunduh untuk dipakai offline','Materi dibagikan di sekolah (unduh/cetak)'],
+top:['kalor pembakaran bahan bakar','kalori makanan dan dapur','karhutla dan kualitas udara','energi dari limbah','cold pack, hot pack, dan teknologi'],
+task:['praktikum','video/poster','proyek produk','kuis dan game','presentasi kelompok']};
+const JALUR={
+D:{n:'Jalur Dasar',d:'Mulai dari penguatan prasyarat (mol, ΔT, penyetaraan reaksi), lalu Termokimia dengan video dan visual bertahap.'},
+R:{n:'Jalur Reguler',d:'Materi Termokimia dari konsep dasar dengan lab maya terpandu.'},
+P:{n:'Jalur Pengayaan',d:'Langsung ke aplikasi dan proyek (kalor bahan bakar, energi dari limbah, karhutla) dengan lab maya bebas.'}};
+const $=s=>document.querySelector(s);
+let ans={},nama='',kelas='',teks='';
+function store(r){try{const a=JSON.parse(localStorage.getItem('termo_hasil')||'[]');a.push(r);localStorage.setItem('termo_hasil',JSON.stringify(a))}catch(e){}}
+function load(){try{return JSON.parse(localStorage.getItem('termo_hasil')||'[]')}catch(e){return[]}}
+function start(){
+let h=`<h1>Asesmen Awal Termokimia</h1><p class="mu">15 soal, ±20 menit. Ini bukan penilaian, tetapi untuk menyesuaikan pembelajaran dengan kesiapan dan minatmu. Jawablah dengan jujur.</p>
+<div class="bar"><div class="pb"><i id="pb"></i></div><span class="mu" id="pt">0/15 terjawab</span></div>
+<div class="card"><b>Identitas</b><p><input type="text" id="nm" placeholder="Nama lengkap"></p><input type="text" id="kl" placeholder="Kelas / asal sekolah"></div>`;
+const H={A:'Bagian A. Profil dan Minat (tidak dinilai)',B:'Bagian B. Prasyarat Kimia dan Sains',C:'Bagian C. Pengetahuan Awal Termokimia'};let last='';
+A.forEach((q,i)=>{if(q.s!=last){h+=`<h2>${H[q.s]}</h2>`;last=q.s}
+h+=`<div class="card q" id="q${i}"><b>${i+1}. ${q.t}</b>`;
+if(q.e)h+=`<textarea id="es" placeholder="Tulis jawabanmu di sini…"></textarea>`;
+else q.o.forEach((o,j)=>h+=`<label class="o"><input type="${q.m?'checkbox':'radio'}" name="q${i}" value="${j}"> <span>${L[j]}. ${o}</span></label>`);
+h+='</div>'});
+h+=`<p id="er" class="err"></p><button onclick="kirim()">Kirim dan lihat jalur belajar</button> <button class="g" onclick="rekap()">Rekap guru</button>`;
+$('#app').innerHTML=h;
+document.querySelectorAll('input[name]').forEach(e=>e.onchange=prog);$('#es').oninput=prog;
+}
+function get(i){const q=A[i];if(q.e)return $('#es').value.trim();
+const v=[...document.querySelectorAll(`input[name=q${i}]:checked`)].map(e=>+e.value);return q.m?v:(v.length?v[0]:null)}
+function prog(){let n=0;A.forEach((q,i)=>{const v=get(i);if(q.e?v.length>0:q.m?v.length>0:v!==null)n++});
+$('#pb').style.width=n/15*100+'%';$('#pt').textContent=n+'/15 terjawab'}
+function essay(t){const x=t.toLowerCase();if(x.length<15)return 0;
+const g=[/kalor|panas|energi|eksoterm/,/bakar|membara|api|reaksi|oksidasi/,/gambut|bawah|tanah|dalam|oksigen|udara|bahan bakar|karbon|lapisan|melimpah|sulit|menyebar/];
+return g.filter(r=>r.test(x)).length}
+function kirim(){
+const n=$('#nm').value.trim();if(!n){$('#er').textContent='Isi nama terlebih dahulu.';$('#nm').focus();return}
+for(let i=0;i<15;i++){const v=get(i),q=A[i];if(q.e?!v:q.m?!v.length:v===null){$('#er').textContent='Soal nomor '+(i+1)+' belum dijawab.';$('#q'+i).scrollIntoView({behavior:'smooth',block:'center'});return}
+if(q.m&&v.length>2){$('#er').textContent='Soal nomor 3: pilih maksimal 2 topik.';$('#q'+i).scrollIntoView({behavior:'smooth',block:'center'});return}}
+ans={};for(let i=0;i<14;i++)ans[i]=get(i);teks=get(14);nama=n;kelas=$('#kl').value.trim();
+const r=hitung(essay(teks));store({t:new Date().toLocaleString('id-ID'),nama,kelas,B:r.B,C:r.C,jalur:r.j.n,es:r.es,teks});
+hasil(r);window.scrollTo(0,0)}
+function hitung(es){let B=0,C=0,salah=[];
+A.forEach((q,i)=>{if(q.k===undefined)return;const ok=ans[i]===q.k;if(ok){q.s=='B'?B++:C++}else salah.push(q)});
+C+=es;const j=B<3?JALUR.D:(C<5?JALUR.R:JALUR.P);return{B,C,es,j,salah}}
+function hasil(r){
+const f=PROF.fmt[ans[0]],m=PROF.mode[ans[1]],tp=ans[2].map(i=>PROF.top[i]).join(' dan '),tg=PROF.task[ans[3]];
+const mis=[];if(ans[13]!==1)mis.push('Miskonsepsi awal: arah perpindahan kalor pada cold pack (soal 14). Beri visual aliran kalor sistem–lingkungan.');
+if(r.es<2)mis.push('Penalaran kontekstual karhutla masih rendah (soal 15). Hubungkan pembakaran dengan pelepasan kalor dan bahan bakar gambut.');
+let h=`<h1>Hasil untuk ${esc(nama)}</h1><p class="mu">${esc(kelas)}</p>
+<div class="card path"><div class="mu">Jalur belajar kamu</div><div class="big">${r.j.n}</div><p>${r.j.d}</p></div>
+<div class="card"><div class="big">Bagian B: ${r.B}/4 &nbsp; Bagian C: ${r.C}/9</div>
+<p class="mu">Aturan jalur: B &lt; 3 → Dasar; B ≥ 3 dan C &lt; 5 → Reguler; B ≥ 3 dan C ≥ 5 → Pengayaan.</p>
+<p>Soal uraian (nomor 15): skor perkiraan otomatis <b id="esv">${r.es}</b>/3. Guru dapat mengoreksi:
+<select id="ov" style="width:auto"><option>0</option><option>1</option><option>2</option><option>3</option></select></p></div>
+<div class="card"><b>Profil belajar</b><ul><li>Format utama: ${f}</li><li>Akses: ${m}</li><li>Konteks contoh: ${tp}</li><li>Bentuk tugas favorit: ${tg}</li></ul></div>
+<div class="card"><b>Perlu diperkuat</b>${r.salah.length||mis.length?'<ul>'+r.salah.map(q=>`<li class="no">${q.c}</li>`).join('')+mis.map(x=>`<li>${x}</li>`).join('')+'</ul>':'<p class="ok">Semua soal pilihan ganda benar. Siap melanjutkan.</p>'}</div>
+<button onclick="start()">Peserta berikutnya</button> <button class="g" onclick="rekap()">Rekap guru</button>`;
+$('#app').innerHTML=h;$('#ov').value=r.es;
+$('#ov').onchange=e=>{const x=hitung(+e.target.value);hasil(x);try{const a=load();a[a.length-1].C=x.C;a[a.length-1].es=x.es;a[a.length-1].jalur=x.j.n;localStorage.setItem('termo_hasil',JSON.stringify(a))}catch(_){}}}
+function esc(s){return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function rekap(){const a=load();
+let h=`<h1>Rekap Guru</h1><p class="mu">Data tersimpan di peramban perangkat ini saja (${a.length} peserta didik).</p><div class="card tw"><table><tr><th>Waktu</th><th>Nama</th><th>Kelas</th><th>B/4</th><th>C/9</th><th>Jalur</th></tr>`;
+a.forEach(r=>h+=`<tr><td>${r.t}</td><td>${esc(r.nama)}</td><td>${esc(r.kelas)}</td><td>${r.B}</td><td>${r.C}</td><td>${r.jalur}</td></tr>`);
+h+=`</table></div><button onclick="salin()">Salin sebagai CSV</button> <button class="g" onclick="start()">Kembali</button> <button class="g" onclick="hapus()">Hapus data</button><p id="st" class="mu"></p>`;
+$('#app').innerHTML=h}
+function salin(){const a=load();const c='Waktu,Nama,Kelas,B,C,Jalur\n'+a.map(r=>[r.t,r.nama,r.kelas,r.B,r.C,r.jalur].map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n');
+try{navigator.clipboard.writeText(c).then(()=>$('#st').textContent='CSV disalin. Tempel ke Excel atau Google Sheets.',()=>{$('#st').textContent='Gagal menyalin.'})}catch(e){$('#st').textContent='Gagal menyalin.'}}
+function hapus(){if(confirm('Hapus semua data rekap?')){try{localStorage.removeItem('termo_hasil')}catch(e){}rekap()}}
+start();
+</script></body></html>
